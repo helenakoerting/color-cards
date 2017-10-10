@@ -1,0 +1,90 @@
+$base-color:#669999;
+$base-size: 300px;
+$dark-color: darken($base-color,20%);
+$darker-color: darken($base-color,40%);
+$light-color: lighten($base-color,20%);
+$lighter-color: lighten($base-color,40%);
+
+body{
+@extend %position;
+height: 100vh;
+
+}
+
+@mixin addtosize($pixel) {
+  width: $base-size+$pixel;
+  height: $base-size+$pixel;
+}
+
+@mixin scale ($wert){
+  width: $base-size * $wert;
+  height: $base-size * $wert;
+
+}
+
+%color-card{
+  @extend %position;
+  flex-direction: column;
+  background: $base-color;
+  width: $base-size;
+  height: $base-size;
+  font-family: "Smaragd LT std"
+}
+
+%position{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+}
+
+.base, .light, .dark, .lighter, .darker{
+    @extend %color-card;
+    box-shadow: 10px 10px 20px grey;
+    border: 2px dashed;
+}
+
+/*
+@include add(50)
+scale(1,5)
+**/
+
+.lighter{
+  @include scale(.9);
+  background: $lighter-color;
+  &:after{
+    content: "color"+ $lighter-color;
+  }
+}
+
+.light{
+  @include scale(1.1);
+  background: $light-color;
+  &:after{
+    content: "color"+ $light-color;
+  }
+}
+
+.base{
+  &:after{
+    content: "color"+ $base-color;
+  }
+  @include addtosize(100);
+}
+
+.dark{
+  @include scale(1.1);
+  background: $dark-color;
+  &:after{
+    content: "color"+ $dark-color;
+  }
+}
+
+.darker{
+  @include scale(.9);
+  @extend %color-card;
+  background: $darker-color;
+  &:after{
+    content: "color"+ $darker-color;
+  }
+}
